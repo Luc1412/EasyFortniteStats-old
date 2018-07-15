@@ -1246,6 +1246,9 @@ class FNDebug:
             # TODO Message in Info + Start message! (Stop Command)
             restart_message = discord.Embed(description='Bot reboots in 5 seconds...', color=Color.red())
             await channel.send(embed=restart_message)
+            info_channel = await utils.get_info_channel()
+            restart_info_message = discord.Embed(description='Bot restarts soon...', color=Color.red())
+            await info_channel.send(embed=restart_info_message)
             await asyncio.sleep(5)
             sys.exit('Restart')
         return None
@@ -1425,6 +1428,9 @@ async def on_ready():
     bot.loop.create_task(update())
     logging_manager.info('Bot was successfully enabled!')
     await utils.update_server_count()
+    info_channel = await utils.get_info_channel()
+    start_info_message = discord.Embed(description='Bot successfully launched!', color=Color.red())
+    await info_channel.send(embed=start_info_message)
 
 
 if __name__ == '__main__':

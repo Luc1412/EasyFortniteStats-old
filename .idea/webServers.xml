@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f001b8b3-9bc5-4ff6-a659-e92d5237a34b" name="AuthServer" url="http://5.1.86.146">
+        <fileTransfer host="5.1.86.146" port="22" rootFolder="/home/EasyFortniteStats" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
