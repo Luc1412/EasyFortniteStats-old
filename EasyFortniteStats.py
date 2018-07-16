@@ -5,7 +5,6 @@ import logging
 import os
 import sys
 import time
-from datetime import time
 
 import aiohttp
 import discord
@@ -1247,7 +1246,7 @@ class FNDebug:
             restart_message = discord.Embed(description='Bot reboots in 5 seconds...', color=Color.red())
             await channel.send(embed=restart_message)
             info_channel = await utils.get_info_channel()
-            restart_info_message = discord.Embed(description='Bot restarts soon...', color=Color.red())
+            restart_info_message = discord.Embed(description='Bot restarts soon...', color=Color.from_rgb(255, 242, 0))
             await info_channel.send(embed=restart_info_message)
             await asyncio.sleep(5)
             sys.exit('Restart')
@@ -1328,7 +1327,7 @@ async def on_guild_join(guild):
     await utils.update_server_count()
     database_manager.add_guild(guild)
     embed = Embed(color=Color.from_rgb(76, 209, 55),
-                  description="Hello I'm <@{}>,\nIf you want to change the language to German use `!fnlang <DE/EN>`.\n"
+                  description="Hello I'm <@{}>,\nI was added to your server!\nIf you want to change the language to German use `!fnlang <DE/EN>`.\n"
                               " English is the default language!".format(bot.user.id))
     embed.set_thumbnail(url=config_manager.get_config_value('URLs.Icon_Big_URL'))
     embed.set_author(name='Introduction',
@@ -1353,14 +1352,10 @@ async def on_guild_join(guild):
                           'If you type `!fn donate`, you got more information!\n\n'
                           'You can also support me for free by voting for the bot.\n\n'
                           'Type `!fn vote`')
-    for member in guild.members:
-        if member.bot:
-            continue
-        if member.guild_permissions.administrator:
-            try:
-                await member.send(embed=embed)
-            except discord.Forbidden:
-                return
+    try:
+        await guild.owner.send(embed=embed)
+    except discord.Forbidden:
+        return
 
     channel = await utils.get_info_channel()
     new_server_message = discord.Embed(description='**Name:** {}\n'
@@ -1429,7 +1424,7 @@ async def on_ready():
     logging_manager.info('Bot was successfully enabled!')
     await utils.update_server_count()
     info_channel = await utils.get_info_channel()
-    start_info_message = discord.Embed(description='Bot successfully launched!', color=Color.red())
+    start_info_message = discord.Embed(description='Bot successfully launched!', color=Color.from_rgb(39, 174, 96))
     await info_channel.send(embed=start_info_message)
 
 
